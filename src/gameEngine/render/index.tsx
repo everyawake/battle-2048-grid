@@ -1,4 +1,6 @@
 import * as React from "react";
+import throttle from "lodash/throttle";
+import mem from "mem";
 import { CanvasBoard } from "./styled";
 import randomRGB from "../helpers/randomRGB";
 import Board2048Engine, {
@@ -8,10 +10,7 @@ import Board2048Engine, {
   IBlock,
 } from "../engine";
 
-// const CANVAS_PADDING = 10;
-const BLOCK_MARGIN = 8;
-const BLOCK_SIZE = 80;
-const BLOCK_POS = BLOCK_MARGIN + BLOCK_SIZE;
+// const BLOCK_MARGIN = 8;
 
 interface IProps {
   width: number;
@@ -19,7 +18,17 @@ interface IProps {
   boardSize: number;
 }
 
-export default class Board2048 extends React.PureComponent<IProps> {
+interface IState {
+  canvasWidth: number;
+  canvasHeight: number;
+}
+
+export default class Board2048 extends React.PureComponent<IProps, IState> {
+  public state: IState = {
+    canvasWidth: 0,
+    canvasHeight: 0,
+  };
+
   private readonly engine = new Board2048Engine();
   private readonly refCanvasBoard = React.createRef<HTMLCanvasElement>();
   private canvasContext: CanvasRenderingContext2D | null = null;
@@ -36,17 +45,35 @@ export default class Board2048 extends React.PureComponent<IProps> {
     );
   }
 
+  private readonly getRelativeBlockSize = mem(
+    (param: {
+      canvasWidth: number;
+      canvasHeight: number;
+      boardSize: number;
+    }) => {
+      const { canvasWidth, canvasHeight, boardSize } = param;
+      return {
+        width: canvasWidth / boardSize,
+        height: canvasHeight / boardSize,
+      };
+    },
+  );
+
   private readonly drawRect = (params: {
     posX: number;
     posY: number;
     value: IBlock;
   }) => {
     const ctx = this.canvasContext;
+    const { width, height } = this.getRelativeBlockSize({
+      ...this.state,
+      boardSize: this.props.boardSize,
+    });
     if (ctx) {
       const { posX, posY } = params;
       const { r, g, b } = randomRGB();
       ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
-      ctx.fillRect(posX * BLOCK_POS, posY * BLOCK_POS, BLOCK_SIZE, BLOCK_SIZE);
+      ctx.fillRect(posX * width, posY * height, width, height);
     }
   };
 
@@ -73,18 +100,20 @@ export default class Board2048 extends React.PureComponent<IProps> {
       onBoardChange: this.handleBoardChange,
       onGameEnd: this.handleGameEnd,
     });
-
-    this.setState({
-      board: this.engine.getBoard(),
-    });
     console.info("[✔️] Success to initialize Game engine");
   };
 
   private readonly initializeCanvas = () => {
-    if (this.refCanvasBoard.current) {
-      this.canvasContext = this.refCanvasBoard.current.getContext("2d");
+    const canvas = this.refCanvasBoard.current;
+    if (canvas) {
+      this.canvasContext = canvas.getContext("2d");
       if (this.canvasContext) {
         console.info("[✔️] Success to initialize canvas");
+
+        this.setState({
+          canvasWidth: canvas.width,
+          canvasHeight: canvas.height,
+        });
         this.renderBoard(this.engine.getBoard());
 
         this.registerKeyboardInput();
@@ -96,7 +125,7 @@ export default class Board2048 extends React.PureComponent<IProps> {
 
   private readonly registerKeyboardInput = () => {
     if (window) {
-      window.addEventListener("keydown", this.handleArrowKey);
+      window.addEventListener("keydown", this.debounceKeyDown);
       console.info("[✔️] Success to register keyboard input");
     } else {
       console.error("[❌] Failed to register keyboard input");
@@ -147,4 +176,5 @@ export default class Board2048 extends React.PureComponent<IProps> {
       this.engine.move(direction);
     }
   };
+  private readonly debounceKeyDown = throttle(this.handleArrowKey, 150);
 }

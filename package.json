@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/jest": "24.0.19",
     "@types/lodash": "^4.14.144",
+    "@types/mem": "^4.2.0",
     "@types/node": "12.11.7",
     "@types/react": "16.9.11",
     "@types/react-dom": "16.9.3",
@@ -12,6 +13,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@types/styled-components": "^4.1.19",
     "lodash": "^4.17.15",
+    "mem": "^5.1.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-router": "^5.1.2",
