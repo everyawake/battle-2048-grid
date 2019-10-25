@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import * as serviceWorker from "./serviceWorker";
-import Landing from "./pages/landing";
 import { Router, Switch, Route } from "react-router";
 import { createBrowserHistory } from "history";
+import * as serviceWorker from "./serviceWorker";
+
+import Landing from "./pages/landing";
+import SingleMode from "./pages/single";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -18,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   #root,
@@ -25,7 +28,6 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
   }
-
 `;
 
 const history = createBrowserHistory();
@@ -36,12 +38,13 @@ ReactDOM.render(
       <GlobalStyle />
       <Router history={history}>
         <Switch>
-          <Route component={Landing} />
+          <Route path="/single" exact={true} component={SingleMode} />
+          <Route path="/" component={Landing} />
         </Switch>
       </Router>
     </>
   </ThemeProvider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
 
 // If you want your app to work offline and load faster, you can change
