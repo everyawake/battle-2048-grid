@@ -12,6 +12,7 @@
     "@types/react-router": "^5.1.2",
     "@types/react-router-dom": "^5.1.0",
     "@types/styled-components": "^4.1.19",
+    "gh-pages": "^2.1.1",
     "lodash": "^4.17.15",
     "mem": "^5.1.1",
     "react": "^16.11.0",
@@ -26,11 +27,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "homepage": "https://everyawake.github.io/battle-2048-grid",
   "browserslist": {
     "production": [
       ">0.2%",
