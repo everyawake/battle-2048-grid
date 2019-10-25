@@ -17,12 +17,20 @@ export default class Board2048Engine {
   private startValue = 2;
   private maxBoardSearchCount = 4;
   private onBoardChange: BoardChangeHandler = () => {};
+  private onGameEnd: VoidFunction = () => {};
 
-  public initializeBoard(boardSize: number, onBoardChange: BoardChangeHandler) {
+  public initializeBoard(options: {
+    boardSize: number;
+    onBoardChange: BoardChangeHandler;
+    onGameEnd: VoidFunction;
+  }) {
+    const { boardSize, onBoardChange, onGameEnd } = options;
     this.currentBoardSize = boardSize;
     this.generateBlockCountPerMove = Math.round(boardSize / 2);
-    this.onBoardChange = onBoardChange;
     this.maxBoardSearchCount = Math.pow(boardSize, boardSize);
+
+    this.onBoardChange = onBoardChange;
+    this.onGameEnd = onGameEnd;
 
     this.board = new Array(boardSize);
     for (let i = 0; i < boardSize; i++) {
@@ -53,6 +61,7 @@ export default class Board2048Engine {
         })
         .catch(() => {
           console.log("!!! no space");
+          this.onGameEnd(); // temporary
         });
     }
   };

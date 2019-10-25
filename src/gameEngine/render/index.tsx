@@ -68,7 +68,12 @@ export default class Board2048 extends React.PureComponent<IProps> {
 
   private readonly initializeGameEngine = () => {
     const { boardSize } = this.props;
-    this.engine.initializeBoard(boardSize, this.handleBoardChange);
+    this.engine.initializeBoard({
+      boardSize,
+      onBoardChange: this.handleBoardChange,
+      onGameEnd: this.handleGameEnd,
+    });
+
     this.setState({
       board: this.engine.getBoard(),
     });
@@ -101,6 +106,10 @@ export default class Board2048 extends React.PureComponent<IProps> {
   private readonly handleBoardChange: BoardChangeHandler = board => {
     console.log("!!!! handleBoardChange", board);
     this.renderBoard(board);
+  };
+
+  private readonly handleGameEnd = () => {
+    alert(" - GAME END - ");
   };
 
   private readonly handleArrowKey: React.EventHandler<any> = e => {
