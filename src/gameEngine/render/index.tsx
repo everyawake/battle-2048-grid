@@ -9,6 +9,7 @@ import Board2048Engine, {
   BoardChangeHandler,
   IBlock,
 } from "../engine";
+import { mainTheme } from "../../theme";
 
 // const BLOCK_MARGIN = 8;
 
@@ -62,7 +63,7 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
   private readonly drawRect = (params: {
     posX: number;
     posY: number;
-    value: IBlock;
+    block: IBlock;
   }) => {
     const ctx = this.canvasContext;
     const { width, height } = this.getRelativeBlockSize({
@@ -70,10 +71,21 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
       boardSize: this.props.boardSize,
     });
     if (ctx) {
-      const { posX, posY } = params;
+      const { posX, posY, block } = params;
       const { r, g, b } = randomRGB();
+      const calPosY = posX * width;
+      const calPosX = posY * height;
+
+      // clear box
+      ctx.clearRect(calPosX, calPosY, width, height);
+      // box render
       ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
-      ctx.fillRect(posX * width, posY * height, width, height);
+      ctx.fillRect(calPosX, calPosY, width, height);
+      // text render
+      ctx.fillStyle = `${mainTheme.primaryTextColor}`;
+      ctx.font = `2.0rem Noto Sans KR`;
+      ctx.textAlign = "center";
+      ctx.fillText(`${block.value}`, calPosX + width / 2, calPosY + height / 2);
     }
   };
 
@@ -86,7 +98,7 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
           this.drawRect({
             posX: x,
             posY: y,
-            value: block,
+            block: block,
           });
         }
       }
