@@ -24,19 +24,20 @@ export const moveToLeft = (board: Board): Board => {
 };
 
 export const moveToRight = (board: Board): Board => {
-  for (let colIdx = 0; colIdx < board.length; colIdx++) {
-    const column = board[colIdx];
+  const newBoard = JSON.parse(JSON.stringify(board));
+  for (let colIdx = 0; colIdx < newBoard.length; colIdx++) {
+    const column = newBoard[colIdx];
     const lastIndex = column.length - 1;
 
     for (let itemOffset = 0; itemOffset < column.length - 1; itemOffset++) {
       const currentPos = lastIndex - itemOffset;
-      const currentItem = column[lastIndex - itemOffset];
+      const currentItem = column[currentPos];
 
       let prevIdx = currentPos - 1;
       let prevItem;
       do {
         prevItem = column[prevIdx--];
-      } while (prevItem.value === 0 && prevIdx > column.length);
+      } while (prevItem.value === 0 && prevIdx >= 0);
 
       if (prevItem.value === currentItem.value || currentItem.value === 0) {
         // merge
@@ -46,5 +47,5 @@ export const moveToRight = (board: Board): Board => {
       }
     }
   }
-  return board;
+  return newBoard;
 };
