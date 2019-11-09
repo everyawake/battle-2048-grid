@@ -1,51 +1,38 @@
-import { Board } from "../engine";
+import fill from "lodash/fill";
+import { Board, IBlock } from "../engine";
 
-export const moveToLeft = (board: Board): Board => {
-  const newBoard = JSON.parse(JSON.stringify(board));
-  for (let colIdx = 0; colIdx < newBoard.length; colIdx++) {
-    const column = newBoard[colIdx];
-    for (let itemOffset = 0; itemOffset < column.length - 1; itemOffset++) {
-      const currentItem = column[itemOffset];
-      let nextIdx = itemOffset + 1;
-      let nextItem;
-      do {
-        nextItem = column[nextIdx++];
-      } while (nextItem.value === 0 && nextIdx < column.length);
-
-      if (nextItem.value === currentItem.value || currentItem.value === 0) {
-        // merge
-        currentItem.value = nextItem.value + currentItem.value;
-        // clear nextItem holder
-        nextItem.value = 0;
-      }
-    }
-  }
-  return newBoard;
+const arrayReorder = (
+  row: Array<IBlock>,
+  startFrom: "left" | "right",
+): Array<IBlock> => {
+  const length = row.length;
+  const newRow = row.filter(block => Boolean(block.value));
+  const padArray = fill(Array(length - newRow.length), { value: 0 });
+  return startFrom === "left"
+    ? newRow.concat(padArray)
+    : padArray.concat(newRow);
 };
 
-export const moveToRight = (board: Board): Board => {
-  const newBoard = JSON.parse(JSON.stringify(board));
-  for (let colIdx = 0; colIdx < newBoard.length; colIdx++) {
-    const column = newBoard[colIdx];
-    const lastIndex = column.length - 1;
+export const moveToLeft = (row: Array<IBlock>): Array<IBlock> => {
+  const sortedRow = arrayReorder(row, "left");
+  return merge(sortedRow);
+};
 
-    for (let itemOffset = 0; itemOffset < column.length - 1; itemOffset++) {
-      const currentPos = lastIndex - itemOffset;
-      const currentItem = column[currentPos];
+export const moveToRight = (row: Array<IBlock>): Array<IBlock> => {
+  const sortedRow = arrayReorder(row, "right");
+  return merge(sortedRow.reverse()).reverse();
+};
 
-      let prevIdx = currentPos - 1;
-      let prevItem;
-      do {
-        prevItem = column[prevIdx--];
-      } while (prevItem.value === 0 && prevIdx >= 0);
-
-      if (prevItem.value === currentItem.value || currentItem.value === 0) {
-        // merge
-        currentItem.value = prevItem.value + currentItem.value;
-        // clear prevItem holder
-        prevItem.value = 0;
-      }
+const merge = (arr: Array<IBlock>) => {
+  const newArr = [...arr];
+  for (let i = 0; i < newArr.length; i += 2) {
+    const l = newArr[i];
+    const r = newArr[i + 1];
+    if (l && r && l.value === r.value && l.value !== 0) {
+      l.value += r.value;
+      r.value = 0;
     }
   }
-  return newBoard;
+
+  return arrayReorder(newArr, "left");
 };

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.19",
     "@types/lodash": "^4.14.144",
     "@types/mem": "^4.2.0",
     "@types/node": "12.11.7",
@@ -46,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "ts-jest": "^24.1.0"
   }
 }
