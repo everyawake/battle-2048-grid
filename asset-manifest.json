@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/battle-2048-grid/static/js/main.cecf6bdb.chunk.js",
-    "main.js.map": "/battle-2048-grid/static/js/main.cecf6bdb.chunk.js.map",
+    "main.js": "/battle-2048-grid/static/js/main.b17a04e7.chunk.js",
+    "main.js.map": "/battle-2048-grid/static/js/main.b17a04e7.chunk.js.map",
     "runtime-main.js": "/battle-2048-grid/static/js/runtime-main.3e240f15.js",
     "runtime-main.js.map": "/battle-2048-grid/static/js/runtime-main.3e240f15.js.map",
-    "static/js/2.d5dc5e0e.chunk.js": "/battle-2048-grid/static/js/2.d5dc5e0e.chunk.js",
-    "static/js/2.d5dc5e0e.chunk.js.map": "/battle-2048-grid/static/js/2.d5dc5e0e.chunk.js.map",
+    "static/js/2.733db65c.chunk.js": "/battle-2048-grid/static/js/2.733db65c.chunk.js",
+    "static/js/2.733db65c.chunk.js.map": "/battle-2048-grid/static/js/2.733db65c.chunk.js.map",
     "index.html": "/battle-2048-grid/index.html",
-    "precache-manifest.6ad49c12279e829a389df58cd39c506b.js": "/battle-2048-grid/precache-manifest.6ad49c12279e829a389df58cd39c506b.js",
+    "precache-manifest.8bae406eeaac257dd881e7d0151ea7f4.js": "/battle-2048-grid/precache-manifest.8bae406eeaac257dd881e7d0151ea7f4.js",
     "service-worker.js": "/battle-2048-grid/service-worker.js"
   },
   "entrypoints": [
     "static/js/runtime-main.3e240f15.js",
-    "static/js/2.d5dc5e0e.chunk.js",
-    "static/js/main.cecf6bdb.chunk.js"
+    "static/js/2.733db65c.chunk.js",
+    "static/js/main.b17a04e7.chunk.js"
   ]
 }
