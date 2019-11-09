@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/battle-2048-grid/precache-manifest.8bae406eeaac257dd881e7d0151ea7f4.js"
+  "/battle-2048-grid/precache-manifest.4ce54e15f9e2f3c7adf3ede8e8ac60e4.js"
 );
 
 self.addEventListener('message', (event) => {
