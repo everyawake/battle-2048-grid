@@ -57,12 +57,12 @@ export default class Board2048Engine {
       this.getEmptyRandomPosition()
         .then(result => {
           const { x, y } = result;
-          console.log(`!!!! {x,y}: {${x}, ${y}}`);
+          // console.log(`!!!! {x,y}: {${x}, ${y}}`);
           this.board[x][y] = { value: this.startValue };
           this.onBoardChange(this.board);
         })
         .catch(() => {
-          console.log("!!! no space");
+          // console.log("!!! no space");
           this.onGameEnd(); // temporary
         });
     }

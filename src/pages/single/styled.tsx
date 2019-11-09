@@ -13,3 +13,14 @@ export const Wrapper = styled.div`
 
   background-color: ${mainTheme.backgroundGreyColor};
 `;
+
+export const Header = styled.header`
+  margin-bottom: 2rem;
+`;
+
+export const Button = styled.button`
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border-radius: 2rem;
+  margin-left: 1rem;
+`;

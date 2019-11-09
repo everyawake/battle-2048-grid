@@ -47,6 +47,10 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
     );
   }
 
+  public restart = () => {
+    this.initializeGameEngine();
+  };
+
   private readonly getRelativeBlockSize = mem(
     (param: {
       canvasWidth: number;
@@ -152,7 +156,6 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
   };
 
   private readonly handleBoardChange: BoardChangeHandler = board => {
-    console.log("!!!! handleBoardChange", board);
     this.renderBoard(board);
   };
 
@@ -165,28 +168,24 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
     switch (e.keyCode) {
       // left
       case 37: {
-        console.log("KeyInput: left arrow");
         direction = "left";
         break;
       }
 
       // up
       case 38: {
-        console.log("KeyInput: up arrow");
         direction = "up";
         break;
       }
 
       // right
       case 39: {
-        console.log("KeyInput: right arrow");
         direction = "right";
         break;
       }
 
       // down
       case 40: {
-        console.log("KeyInput: down arrow");
         direction = "down";
         break;
       }
