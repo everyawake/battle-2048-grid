@@ -79,6 +79,21 @@ describe("BlockMergeHelper()", () => {
           expect(b[3].value).toBe(0);
         });
       });
+
+      describe("case 4", () => {
+        it("merge properly", () => {
+          const b = moveToLeft([
+            { value: 4 },
+            { value: 2 },
+            { value: 2 },
+            { value: 2 },
+          ]);
+          expect(b[0].value).toBe(4);
+          expect(b[1].value).toBe(4);
+          expect(b[2].value).toBe(2);
+          expect(b[3].value).toBe(0);
+        });
+      });
     });
   });
 
@@ -156,6 +171,21 @@ describe("BlockMergeHelper()", () => {
           ]);
           expect(b[0].value).toBe(0);
           expect(b[1].value).toBe(0);
+          expect(b[2].value).toBe(4);
+          expect(b[3].value).toBe(4);
+        });
+      });
+
+      describe("case 4", () => {
+        it("merge properly", () => {
+          const b = moveToRight([
+            { value: 2 },
+            { value: 2 },
+            { value: 2 },
+            { value: 4 },
+          ]);
+          expect(b[0].value).toBe(0);
+          expect(b[1].value).toBe(2);
           expect(b[2].value).toBe(4);
           expect(b[3].value).toBe(4);
         });

@@ -2,7 +2,7 @@ import * as React from "react";
 import throttle from "lodash/throttle";
 import mem from "mem";
 import { CanvasBoard } from "./styled";
-import randomRGB from "../helpers/randomRGB";
+
 import Board2048Engine, {
   Direction,
   Board as GameBoard,
@@ -10,6 +10,7 @@ import Board2048Engine, {
   IBlock,
 } from "../engine";
 import { mainTheme } from "../../theme";
+import BlockColor from "../helpers/getBlockColor";
 
 // const BLOCK_MARGIN = 8;
 
@@ -72,12 +73,9 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
     });
     if (ctx) {
       const { posX, posY, block } = params;
-      const { r, g, b } = randomRGB();
+      const { r, g, b } = BlockColor[block.value];
       const calPosY = posX * width;
       const calPosX = posY * height;
-
-      // clear box
-      ctx.clearRect(calPosX, calPosY, width, height);
       // box render
       ctx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.8)`;
       ctx.fillRect(calPosX, calPosY, width, height);
@@ -89,8 +87,17 @@ export default class Board2048 extends React.PureComponent<IProps, IState> {
     }
   };
 
+  private readonly clearBoard = () => {
+    const ctx = this.canvasContext;
+    const { canvasWidth, canvasHeight } = this.state;
+    if (ctx) {
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    }
+  };
+
   private readonly renderBoard = (board: GameBoard) => {
     const { boardSize } = this.props;
+    this.clearBoard();
     for (let x = 0; x < boardSize; x++) {
       for (let y = 0; y < boardSize; y++) {
         const block = board[x][y];

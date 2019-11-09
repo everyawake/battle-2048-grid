@@ -1,6 +1,7 @@
 import { fill } from "lodash";
 
 import rangeRand from "../helpers/rangeRand";
+import { boardMergeHandler } from "../helpers/blockMergeHelper";
 
 export interface IBlock {
   value: number;
@@ -43,7 +44,8 @@ export default class Board2048Engine {
   public getBoard = () => this.board;
 
   public move(direction: Direction) {
-    console.log("!!!!! Direction: ", direction);
+    this.board = boardMergeHandler(this.board, direction);
+    this.onBoardChange(this.board);
     this.newBlockAtRandomPosition();
   }
 
