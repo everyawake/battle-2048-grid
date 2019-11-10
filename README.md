@@ -5,6 +5,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 https://everyawake.github.io/battle-2048-grid
 
 ## To-do
-- [ ] Restart button in SingleMode
+- [x] Restart button in SingleMode
 - [ ] Need game over check logic
 - [ ] Multi play for competition
