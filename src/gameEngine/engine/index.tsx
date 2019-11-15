@@ -44,8 +44,8 @@ export default class Board2048Engine {
   public getBoard = () => this.board;
 
   public move(direction: Direction) {
-    this.board = boardMergeHandler(this.board, direction);
-    this.onBoardChange(this.board);
+    const newBoard = boardMergeHandler(this.board, direction);
+    this.onBoardChange((this.board = newBoard));
     this.newBlockAtRandomPosition();
   }
 
@@ -92,7 +92,7 @@ export default class Board2048Engine {
       if (x !== null && y !== null) {
         resolve({
           x,
-          y,
+          y
         });
       } else {
         reject();

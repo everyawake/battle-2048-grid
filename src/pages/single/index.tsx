@@ -8,6 +8,8 @@ interface IProps extends RouteComponentProps {}
 export default class SingleMode extends React.PureComponent<IProps> {
   private readonly refBoard = React.createRef<Board2048>();
   public render() {
+    const size = window.innerWidth < 500 ? window.innerWidth : 500;
+
     return (
       <Wrapper>
         <Header>
@@ -19,8 +21,8 @@ export default class SingleMode extends React.PureComponent<IProps> {
         <div>
           <Board2048
             ref={this.refBoard}
-            width={500}
-            height={500}
+            width={size}
+            height={size}
             boardSize={4}
           />
         </div>
