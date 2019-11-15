@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e78fb787c6e6793dc5e2593af8bc584f",
+    "revision": "5ba74cf1622a979967b7a3134f92d4b7",
     "url": "/battle-2048-grid/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/battle-2048-grid/static/js/2.9445ffd4.chunk.js"
   },
   {
-    "revision": "d12b37c356c45450dd59",
-    "url": "/battle-2048-grid/static/js/main.f2add977.chunk.js"
+    "revision": "3ba7f0866ee9d70acf9c",
+    "url": "/battle-2048-grid/static/js/main.34c38b0e.chunk.js"
   },
   {
     "revision": "9d0cf0133efe0e832acc",
